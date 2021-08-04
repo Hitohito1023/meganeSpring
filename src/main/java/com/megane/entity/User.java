@@ -45,5 +45,5 @@ public class User {
 	private Boolean suspended;
 
 	@Column(name = "created_date")
-	private Date created_date;
+	private Date createdDate;
 }
