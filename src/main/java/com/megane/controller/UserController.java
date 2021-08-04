@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.M.utils.CipherUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.megane.entity.User;
 import com.megane.repository.UserRepository;
+import com.megane.utils.CipherUtil;
 
 @RestController
 @RequestMapping("/user")
