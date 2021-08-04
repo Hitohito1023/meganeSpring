@@ -35,10 +35,11 @@ public class TeamController {
 
 	//チーム追加
 	@PostMapping("/add")
-	public Team save(@RequestBody Team request){
-		Team entity = new Team();
-		entity.setName(request.getName());
-		return teamRepository.save(entity);
+	public List<Team> save(@RequestBody Team request){
+		Team team = new Team();
+		team.setName(request.getName());
+		teamRepository.save(team);
+		return teamRepository.findAll();
 	}
 
 }
