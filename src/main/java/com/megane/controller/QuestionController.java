@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class QuestionController {
 	private final QuestionRepository questionRepository;
 
-	@GetMapping
+	@GetMapping("/get")
 	public List<Question> getAll() {
 	return questionRepository.findAll();
 	}

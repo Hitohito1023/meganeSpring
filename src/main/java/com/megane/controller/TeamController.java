@@ -22,19 +22,19 @@ public class TeamController {
 	private final TeamRepository teamRepository;
 
 	//全チーム取得
-	@GetMapping
+	@GetMapping("/get")
 	public List<Team> findAll(){
 		return teamRepository.findAll();
 	}
 
 	//チーム削除
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public void  delete(@PathVariable("id") Integer id){
 		teamRepository.deleteById(id);
 	}
 
 	//チーム追加
-	@PostMapping
+	@PostMapping("/add")
 	public Team save(@RequestBody Team request){
 		Team entity = new Team();
 		entity.setName(request.getName());
