@@ -11,4 +11,6 @@ import com.megane.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 	Optional<User> findById(Integer userId);
 
+	User findByAccountAndPassword(String account, String password);
+
 }
