@@ -1,5 +1,9 @@
 package com.megane.repository;
 
-public class TypeRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.megane.entity.Type;
+
+public interface TypeRepository extends JpaRepository<Type, Integer> {
 
 }

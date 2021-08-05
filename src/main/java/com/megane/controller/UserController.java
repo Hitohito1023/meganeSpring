@@ -39,8 +39,12 @@ public class UserController {
 
 	@CrossOrigin
 	@GetMapping("/get/{userId}")
-	public Optional<User> getByUserId(@PathVariable("userId") Integer userId) throws IOException {
-		return userRepository.findById(userId);
+	public Optional<User> getByUserId(@PathVariable("userId") Integer userId){
+		Optional<User> user = userRepository.findById(userId);
+		if(user ==null) {
+			return null;
+		}
+		return user;
 	}
 
 	//最初に重複の確認を行うために、getAllをしてaccountの重複がないかどうかフロントで確認する。
@@ -98,6 +102,22 @@ public class UserController {
 		userRepository.save(user);
 		List<User> users = userRepository.findAll();
 		return ResponseEntity.ok().header("ContentType", MediaType.APPLICATION_JSON_VALUE.toString()).body(users);
+	}
+
+	@CrossOrigin
+	@PostMapping("/login")
+	public User login(@RequestBody String json) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode node = mapper.readTree(json);
+		String account =  node.get("account").textValue();
+		String password = CipherUtil.encrypt(node.get("password").textValue());
+
+		User user = userRepository.findByAccountAndPassword(account, password);
+		if (user != null) {
+			user.setPassword(null);
+		}
+
+		return user;
 	}
 }
 
