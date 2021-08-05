@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -25,13 +27,9 @@ public class Result {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-//	@JoinColumn(name = "user_id")
-//	@OneToOne
-//	private User user;
-
-	@Column(name = "user_id")
-	private int userId;
-
+	@JoinColumn(name = "user_id")
+	@OneToOne
+	private User user;
 
 	@Column(name = "drive_type")
 	private int driveType;
