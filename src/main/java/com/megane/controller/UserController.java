@@ -3,7 +3,6 @@ package com.megane.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -39,12 +38,9 @@ public class UserController {
 
 	@CrossOrigin
 	@GetMapping("/get/{userId}")
-	public Optional<User> getByUserId(@PathVariable("userId") Integer userId){
-		Optional<User> user = userRepository.findById(userId);
-		if(user ==null) {
-			return null;
-		}
-		return user;
+	public User getByUserId(@PathVariable("userId") Integer userId){
+         return userRepository.findById(userId).orElse(null);
+         //存在しないidを検索した場合はnullが返るため、フロント側でidの指定範囲を存在するidに限定する
 	}
 
 	//最初に重複の確認を行うために、getAllをしてaccountの重複がないかどうかフロントで確認する。
@@ -113,9 +109,8 @@ public class UserController {
 		String password = CipherUtil.encrypt(node.get("password").textValue());
 
 		User user = userRepository.findByAccountAndPassword(account, password);
-		if (user != null) {
-			user.setPassword(null);
-		}
+		user.setPassword(null);
+		//passwordをnullに設定しているのはセキュリティと、存在しないuserを検索してnullが返ってきたときにstatusを200以外とするため
 
 		return user;
 	}
