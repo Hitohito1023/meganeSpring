@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.megane.entity.Team;
 import com.megane.entity.User;
 import com.megane.repository.UserRepository;
+import com.megane.service.TeamService;
 import com.megane.utils.CipherUtil;
 
 @RestController
@@ -29,6 +31,9 @@ import com.megane.utils.CipherUtil;
 public class UserController {
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	TeamService teamService;
 
 	@CrossOrigin
 	@GetMapping("/get")
@@ -54,7 +59,7 @@ public class UserController {
 		Boolean adminFlg = node.get("adminFlg").asBoolean();
 		String name = node.get("name").textValue();
 		String password = node.get("password").textValue();
-		Integer team = node.get("team").asInt();
+		Integer team_id = node.get("team").asInt();
 		Boolean suspended = node.get("suspended").asBoolean();
 		Date createdDate = java.sql.Date.valueOf(node.get("createdDate").textValue());
 		//entityのUserへset
@@ -63,6 +68,7 @@ public class UserController {
 		user.setAdminFlg(adminFlg);
 		user.setName(name);
 		user.setPassword(CipherUtil.encrypt(password));
+		Team team = teamService.findTeamById(team_id);
 		user.setTeam(team);
 		user.setSuspended(suspended);
 		user.setCreatedDate(createdDate);

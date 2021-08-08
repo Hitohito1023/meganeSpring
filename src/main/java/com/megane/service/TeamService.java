@@ -18,4 +18,8 @@ public class TeamService {
 	public List<Team> findAll(){
 		return teamRepository.findAll();
 	}
+
+	public Team findTeamById(Integer id) {
+		return teamRepository.findById(id).get();
+	}
 }
