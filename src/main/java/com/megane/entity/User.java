@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -52,4 +53,9 @@ public class User {
 
 	@Column(name = "created_date")
 	private Date createdDate;
+
+	@PrePersist
+	public void onPrePresist() {
+		setCreatedDate(new Date());
+	}
 }

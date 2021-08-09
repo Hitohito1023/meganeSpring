@@ -1,7 +1,6 @@
 package com.megane.controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +59,8 @@ public class UserController {
 		String name = node.get("name").textValue();
 		String password = node.get("password").textValue();
 		Integer team_id = node.get("team").asInt();
-		Boolean suspended = node.get("suspended").asBoolean();
-		Date createdDate = java.sql.Date.valueOf(node.get("createdDate").textValue());
+//		Boolean suspended = node.get("suspended").asBoolean();
+//		Date createdDate = java.sql.Timestamp.valueOf(node.get("createdDate").textValue());
 		//entityのUserへset
 		User user = new User();
 		user.setAccount(account);
@@ -70,8 +69,8 @@ public class UserController {
 		user.setPassword(CipherUtil.encrypt(password));
 		Team team = teamService.findTeamById(team_id);
 		user.setTeam(team);
-		user.setSuspended(suspended);
-		user.setCreatedDate(createdDate);
+//		user.setSuspended(suspended);
+//		user.setCreatedDate(createdDate);
 		userRepository.save(user);
 
 		List<User> users = userRepository.findAll();
